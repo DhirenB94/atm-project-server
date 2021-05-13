@@ -103,4 +103,25 @@ router.get("/loggedIn", (req, res) => {
   res.status(200).json({});
 });
 
+
+//Route that will be called from our front-end
+//For google authentication
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email",
+    ],
+  })
+);
+//Route that will be called from the google servers
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    successRedirect: `${process.env.CLIENT_HOSTNAME}/search-loggedin`,
+    failureRedirect: `${process.env.CLIENT_HOSTNAME}/login`,
+  })
+);
+
 module.exports = router;
