@@ -76,13 +76,12 @@ app.use(
 const index = require('./routes/index');
 app.use('/', index);
 
-const auth = require("./routes/auth-routes");
-app.use("/api", auth);
+const userRoute = require("./routes/user");
+app.use("/api/user", userRoute);
 
-const visited = require("./routes/visited-routes");
-app.use("/api", visited);
+const pinRoute = require("./routes/pins");
+app.use("/api/pins", pinRoute);
 
-const comment = require("./routes/comment-routes");
-app.use("/api", comment);
+
 
 module.exports = app;

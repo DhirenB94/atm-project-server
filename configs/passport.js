@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("../models/user-model");
+const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const GoogleStrategy = require("passport-google-oauth20");
 

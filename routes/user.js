@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user-model");
+const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
@@ -12,15 +12,12 @@ router.post("/signup", async (req, res) => {
     res.status(500).json("Indicate username and password");
     return;
   }
-
   //Check for password strength - Regular Expression
   // const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   // if (passwordRegex.test(password) === false) {
   //   res.status(500).json("Password is too weak");
   //   return;
   // }
-
-
 
   //Check if the user already exists
   let user = await User.findOne({ username: username });
@@ -35,8 +32,6 @@ router.post("/signup", async (req, res) => {
     res.status(500).json("email already exists");
     return;
   }
-
-
   //Create the user in the database
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
@@ -53,8 +48,6 @@ router.post("/signup", async (req, res) => {
     return;
   }
 });
-
-
 
 //LOGIN
 router.post("/login", (req, res, next) => {
@@ -83,16 +76,11 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-
-
-
 //LOGOUT
 router.post("/logout", (req, res) => {
   req.logout();
   res.status(200).json("logout success");
 });
-
-
 
 //LoggedIn?
 router.get("/loggedIn", (req, res) => {
@@ -102,7 +90,6 @@ router.get("/loggedIn", (req, res) => {
   }
   res.status(200).json({});
 });
-
 
 //Route that will be called from our front-end
 //For google authentication
@@ -119,7 +106,7 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${process.env.CLIENT_HOSTNAME}/search-loggedin`,
+    successRedirect: `${process.env.CLIENT_HOSTNAME}/projects`,
     failureRedirect: `${process.env.CLIENT_HOSTNAME}/login`,
   })
 );
