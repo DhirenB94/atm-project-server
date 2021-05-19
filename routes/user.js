@@ -64,6 +64,7 @@ router.post("/login", (req, res, next) => {
       res.status(401).json(failureDetails);
       return;
     }
+    
     // save user in session
     req.login(theUser, (err) => {
       if (err) {
@@ -106,7 +107,7 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${process.env.CLIENT_HOSTNAME}/projects`,
+    successRedirect: `${process.env.CLIENT_HOSTNAME}/map`,
     failureRedirect: `${process.env.CLIENT_HOSTNAME}/login`,
   })
 );

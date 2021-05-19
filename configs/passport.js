@@ -52,9 +52,10 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/api/auth/google/callback",
+      callbackURL: "/api/user/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
+ 
       //The user got authenticated by google
       User.findOne({ googleId: profile.id })
         .then((user) => {
@@ -63,7 +64,7 @@ passport.use(
             done(null, user);
             return;
           }
-          User.create({ googleId: profile.id, username: profile.displayName })
+          User.create({ googleId: profile.id, username: profile.displayName, email: profile._json.email })
             .then((newUser) => {
               //Authenticate and persist in session
               done(null, newUser);
