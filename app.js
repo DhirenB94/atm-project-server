@@ -46,9 +46,9 @@ app.use(
     saveUninitialized: true,
     resave: false,
     cookie: {
-      sameSite: true, //the front and backend on the same domain as the server (initially at least on localhost)
-      secure: false, //at time of creation not using https - will change upon deployment
-      httpOnly: true,
+      sameSite: 'none', //true, //the front and backend on the same domain as the server (initially at least on localhost)
+      secure: true, //false, //at time of creation not using https - will change upon deployment
+      httpOnly: false, //true,
       maxAge: 600000, //time in ms of session expiration
     },
     rolling: true, //session gets refreshed with interactions
